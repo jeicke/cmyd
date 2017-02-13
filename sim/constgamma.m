@@ -1,0 +1,10 @@
+function [rcs,ca,cpg]=constgamma(gamma,graz,rng,rngres,bw)
+%rcs=constgamma(gamma,graz(deg),range(km),rangeresolution(m),beamwidth in units of sin(theta))
+rng=rng*1000;
+r1=rng-rngres/2;
+r2=rng+rngres/2;
+clutterarea=((pi*(r2.^2))-(pi*(r1.^2)))*asin(bw)/(2*pi)./cos(graz*pi/180);
+cpg=sin(graz*pi/180)*(10.^(gamma/10));
+rcs=clutterarea.*cpg;
+rcs=10*log10(rcs);
+ca=clutterarea;
